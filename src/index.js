@@ -1,15 +1,13 @@
-const e = React.createElement
+const Header = () => <h1>GIF Gallery</h1>
 
-const Header = () => e('h1', null, 'GIF Gallery')
+const Gif = ({ gifUrl }) => <img src={gifUrl} />
 
-const Gif = ({ gifUrl }) => e('img', { src: gifUrl })
-
-const GifList = ({ gifUrls }) => {
-  return e('div', null, [
-    e('h2', null, 'All the GIFs!'),
-    gifUrls.map(gifUrl => Gif({ gifUrl }))
-  ])
-}
+const GifList = ({ gifUrls }) => (
+  <div>
+    <h2>All the GIFs!</h2>
+    {gifUrls.map(gifUrl => <Gif gifUrl={gifUrl} />)}
+  </div>
+)
 
 const gifUrls = [
   'https://media.giphy.com/media/3rgXBzEJUJdqoQ7P0I/giphy.gif',
@@ -17,9 +15,11 @@ const gifUrls = [
   'https://media.giphy.com/media/3oKIPrFEZsMAvdVGOk/giphy.gif'
 ]
 
-const App = () => e('div', null, [
-  Header(),
-  GifList({ gifUrls })
-])
+const App = () => (
+  <div>
+    <Header />
+    <GifList gifUrls={gifUrls} />
+  </div>
+)
 
-ReactDOM.render(App(), document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
