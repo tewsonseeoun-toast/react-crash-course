@@ -9,22 +9,27 @@ const GifList = ({ gifUrls }) => (
   </div>
 )
 
-const searchGifs = (event) => {
-  event.preventDefault()
-  const keyword = event.target.keyword.value
-  const url = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${keyword}&limit=25&offset=0&rating=G&lang=en`
+const Search = ({ onGifsFetched }) => {
+  const searchGifs = (event) => {
+    event.preventDefault()
+    const keyword = event.target.keyword.value
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${keyword}&limit=25&offset=0&rating=G&lang=en`
 
-  fetch(url)
-    .then(response => response.json())
-    .then(data => console.log(data))
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const gifUrls = data.data.map(gif => gif.images.original.url)
+        onGifsFetched(gifUrls)
+      })
+  }
+
+  return (
+    <form onSubmit={searchGifs}>
+      Search: <input type='text' name='keyword' />
+      <input type='submit' />
+    </form>
+  )
 }
-
-const Search = () => (
-  <form onSubmit={searchGifs}>
-    Search: <input type='text' name='keyword' />
-    <input type='submit' />
-  </form>
-)
 
 const gifUrls = [
   'https://media.giphy.com/media/3rgXBzEJUJdqoQ7P0I/giphy.gif',
@@ -32,10 +37,14 @@ const gifUrls = [
   'https://media.giphy.com/media/3oKIPrFEZsMAvdVGOk/giphy.gif'
 ]
 
+const logGifUrls = (gifUrls) => {
+  console.log(gifUrls)
+}
+
 const App = () => (
   <div>
     <Header />
-    <Search />
+    <Search onGifsFetched={logGifUrls} />
     <GifList gifUrls={gifUrls} />
   </div>
 )
