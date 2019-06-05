@@ -9,6 +9,13 @@ const GifList = ({ gifUrls }) => (
   </div>
 )
 
+const Search = () => (
+  <form>
+    Search: <input type='text' />
+    <input type='submit' />
+  </form>
+)
+
 const gifUrls = [
   'https://media.giphy.com/media/3rgXBzEJUJdqoQ7P0I/giphy.gif',
   'https://media.giphy.com/media/3o6UBfUacnJGd2Esuc/giphy.gif',
@@ -18,6 +25,7 @@ const gifUrls = [
 const App = () => (
   <div>
     <Header />
+    <Search />
     <GifList gifUrls={gifUrls} />
   </div>
 )
