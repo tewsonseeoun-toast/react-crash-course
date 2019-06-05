@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const Header = () => <h1>GIF Gallery</h1>
 
 const Gif = ({ gifUrl }) => <img src={gifUrl} />
@@ -31,22 +33,20 @@ const Search = ({ onGifsFetched }) => {
   )
 }
 
-const gifUrls = [
-  'https://media.giphy.com/media/3rgXBzEJUJdqoQ7P0I/giphy.gif',
-  'https://media.giphy.com/media/3o6UBfUacnJGd2Esuc/giphy.gif',
-  'https://media.giphy.com/media/3oKIPrFEZsMAvdVGOk/giphy.gif'
-]
+const App = () => {
+  const [ gifUrls, setGifUrls ] = useState([
+    'https://media.giphy.com/media/3rgXBzEJUJdqoQ7P0I/giphy.gif',
+    'https://media.giphy.com/media/3o6UBfUacnJGd2Esuc/giphy.gif',
+    'https://media.giphy.com/media/3oKIPrFEZsMAvdVGOk/giphy.gif'
+  ])
 
-const logGifUrls = (gifUrls) => {
-  console.log(gifUrls)
+  return (
+    <div>
+      <Header />
+      <Search onGifsFetched={setGifUrls} />
+      <GifList gifUrls={gifUrls} />
+    </div>
+  )
 }
-
-const App = () => (
-  <div>
-    <Header />
-    <Search onGifsFetched={logGifUrls} />
-    <GifList gifUrls={gifUrls} />
-  </div>
-)
 
 ReactDOM.render(<App />, document.getElementById('app'))
