@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -10,6 +11,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      GIPHY_API_KEY: JSON.stringify(process.env.GIPHY_API_KEY)
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     })
