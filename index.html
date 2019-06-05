@@ -7,10 +7,13 @@
   const e = React.createElement
 
   const Header = () => e('h1', null, 'GIF Gallery')
+
+  const Gif = ({ gifUrl }) => e('img', { src: gifUrl })
+
   const GifList = ({ gifUrls }) => {
     return e('div', null, [
       e('h2', null, 'All the GIFs!'),
-      gifUrls.map(gifUrl => e('img', { src: gifUrl }))
+      gifUrls.map(gifUrl => Gif({ gifUrl }))
     ])
   }
 
